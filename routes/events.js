@@ -42,4 +42,12 @@ router.post("/events", upload.single('file'), async (req, res) => {
     res.send(response)
 });
 
+router.put("/events/:id", async (req, res) => {
+    let database = await dbo.getDatabase();
+    const collection = database.collection('event');
+    let response = await collection.updateOne({ _id: new ObjectId(req.params.id) }, { $set: req.body });
+
+    res.send(response);
+});
+
 module.exports = router;
