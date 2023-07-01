@@ -50,4 +50,12 @@ router.put("/events/:id", async (req, res) => {
     res.send(response);
 });
 
+router.delete("/events/:id", async (req,res) => {
+    let database = await dbo.getDatabase();
+    const collection = database.collection('event');
+    let response = await collection.deleteOne({ _id: new ObjectId(req.params.id) });
+
+    res.send(response);
+});
+
 module.exports = router;
